@@ -5,7 +5,7 @@ public class EvalResult {
     private Object result;
     private boolean empty;
     
-    public EvalResult(String result, boolean isEmpty) {
+    public EvalResult(Object result, boolean isEmpty) {
         this.result = result;
         this.empty = isEmpty;
     }
