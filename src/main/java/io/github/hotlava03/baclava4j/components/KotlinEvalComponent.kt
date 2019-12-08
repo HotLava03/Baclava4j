@@ -4,15 +4,14 @@ import org.jetbrains.kotlin.script.jsr223.KotlinJsr223JvmLocalScriptEngine
 import org.reactivestreams.Subscriber
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.*
 import javax.script.ScriptContext
 import javax.script.ScriptEngineManager
 
 
 object KotlinEvalComponent {
-    private val IMPORTS = Arrays.asList("io.github.hotlava03.baclava4j.components.*",
+    private val IMPORTS = listOf("io.github.hotlava03.baclava4j.components.*",
             "io.github.hotlava03.baclava4j.commands.*", "io.github.hotlava03.baclava4j.*", "discord4j.core.*",
-            "discord4j.core.event.*",
+            "discord4j.core.event.*", "discord4j.core.`object`.reaction.*", "discord4j.core.`object`.*",
             "reactor.core.publisher.*", "java.lang.*", "java.io.*", "java.math.*",
             "java.time.*", "java.awt.*", "java.awt.image.*", "javax.imageio.*",
             "java.time.format.*", "kotlinx.coroutines.*", "kotlin.reflect.*", "kotlin.reflect.jvm.*", "kotlin.reflect.full.*",
@@ -26,7 +25,7 @@ object KotlinEvalComponent {
         val scriptPrefix = buildString {
             for ((key, value) in engine.getBindings(ScriptContext.ENGINE_SCOPE)) {
                 if ("." !in key) {
-                    val name: String = value.javaClass.name
+                    val name: String = value.javaClass.name.replace("object", "`object`")
                     val bind = """val $key = bindings["$key"] as $name"""
                     appendln(bind)
                 }
