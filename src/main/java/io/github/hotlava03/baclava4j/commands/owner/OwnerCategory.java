@@ -26,7 +26,16 @@ public class OwnerCategory implements Category {
                 new Permission[] {}, // permissions to use
                 this, // Category
                 new JEval() // the executor
-        ));
+            ), new Command(
+                "keval",
+                new String[] {},
+                "Kotlin quality eval only for lava",
+                ">>keval <code>",
+                new Permission[] {},
+                this,
+                new KEval()
+            )    
+        );
     }
 
 }
